@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  rw-hps:
+    build: .
+    container_name: rw-hps
+    ports:
+      - "5123:5123"
+      - "5000-6000:5000-6000/udp"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./plugins:/app/plugins
+      - ./maps:/app/maps
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      # 可以在这里添加额外的Java选项
+      - JAVA_OPTS=-Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Xmx1G
